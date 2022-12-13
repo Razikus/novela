@@ -1,7 +1,9 @@
 # What is novela.ink?
+https://novela.ink
 
 
-[![Novela (click)](./assets/readme.png)](https://www.youtube.com/watch?v=e14Tk476YOM)
+[![Novela (click)](./assets/readme.png)](https://novela.ink/)
+
 
 Novela ink is your own personal AI assistant platform to create/modify/enchance your stories.
 
