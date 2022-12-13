@@ -1,5 +1,8 @@
 # What is novela.ink?
 
+
+[![Novela (click)](./novela-gui/src/assets/logo-3.png)](https://www.youtube.com/watch?v=e14Tk476YOM)
+
 Novela ink is your own personal AI assistant platform to create/modify/enchance your stories.
 
 With power of OpenAI it was possible to create a storywritter that can really fit into your needs.
