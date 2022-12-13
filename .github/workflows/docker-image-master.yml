@@ -24,14 +24,6 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Extract tag name
-        shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
-        id: extract_tag
-      - name: Extract tag name without v
-        shell: bash
-        run: echo "##[set-output name=tagv;]$(echo ${GITHUB_REF#refs/tags/v})"
-        id: extract_tag_v
       -
         name: Build and push
         uses: docker/build-push-action@v2
