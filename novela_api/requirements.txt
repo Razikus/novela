@@ -1,0 +1,4 @@
+fastapi==0.88.0
+immudb-py==1.4.0
+uvicorn==0.20.0
+openai==0.25.0

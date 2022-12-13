@@ -1,0 +1,52 @@
+version: '3'
+services:
+  reverse-proxy:
+    image: traefik:v2.9
+    restart: always
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  novela_api:
+    image: razikus/novela:api-1.0.0
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.novelaapi.rule=PathPrefix(`/api/`)"
+      - "traefik.http.routers.novelaapi.entrypoints=web"
+      - "traefik.http.routers.novelaapi.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=user:$$apr1$$fs0ibcry$$xjoLnWEIEwlPhPFUuv3sm0" # user / user | generate the login and password with htpasswd generator (could be found online)
+    environment:
+      - STARTING_API_KEY=FILLHEREYOURAPIKEY
+      - STATICPREFIX=/static/
+      - DB_URL=immudb:3322
+      - DB_USER=immudb
+      - DB_PASS=immudb
+      - DB_NAME=defaultdb
+
+
+    volumes:
+      - "static:/static"
+  novela_gui:
+    image: razikus/novela:gui-1.0.0
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.novelagui.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.novelagui.entrypoints=web"
+      - "traefik.http.routers.novelagui.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=user:$$apr1$$fs0ibcry$$xjoLnWEIEwlPhPFUuv3sm0" # user / user | generate the login and password with htpasswd generator (could be found online)
+
+  immudb:
+    image: codenotary/immudb:1.4.1
+    restart: always
+    volumes:
+      - "immudb:/var/lib/immudb"
+
+volumes:
+  static:
+  immudb:
